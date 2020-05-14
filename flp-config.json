@@ -1,0 +1,35 @@
+{
+    "application": {
+        "id": "",
+        "title": "sap.ui.administrativo.reporte.Tdp_PMCA_REPORTE",
+        "description": "Reporte Asociados",
+        "type": "SAP_UI5_Component",
+        "componentUrl": "/",
+        "appUrl": "#Tdp_PMCA_REPORTE-Display",
+        "navigationComponentName": "sap.ui.administrativo.reporte",
+        "intentSemanticObject": "Tdp_PMCA_REPORTE",
+        "intentAction": "Display",
+        "html5ApplicationName": "tdppmcareporte",
+        "HCPParentApplicationName": ""
+    },
+    "assignment": {
+        "groups": [
+            "1d46342c-f3e9-4e74-8c86-7c909046eae5-1517611470475"
+        ],
+        "contentPackages": [
+            "f96e38f0-52ba-4789-823d-0e59b3bfbbdb-1517611619096"
+        ],
+        "categories": []
+    },
+    "tile": {
+        "type": "StaticTile",
+        "title": "Reporte Asociados",
+        "subtitle": "Equipos",
+        "searchKeywords": "Reporte Asociados,Equipos",
+        "displayIconUrl": "sap-icon://list",
+        "displayInfoText": "",
+        "size": "1x1",
+        "serviceURL": "",
+        "refreshInterval": ""
+    }
+}

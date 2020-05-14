@@ -1,0 +1,6 @@
+.sapUiTableTr.sapUiTableRowSel:not(.sapUiTableGroupHeader)>td:not(.sapUiTableTDDummy){
+	background-color:#FFBB33 !important;
+}
+.sapUiTableRowHdr.sapUiTableRowSel{
+	background-color:#FFBB33 !important;
+}

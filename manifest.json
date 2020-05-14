@@ -1,0 +1,89 @@
+{
+	"_version": "1.1.0",
+	"sap.app": {
+		"_version": "1.1.0",
+		"id": "sap.ui.administrativo.reporte",
+		"type": "application",
+		"i18n": "i18n/i18n.properties",
+		"title": "PORTAL ADMINISTRATIVO",
+		"description": "Portal Administrativo",
+		"applicationVersion": {
+			"version": "1.0.0"
+		},
+		"dataSources": {
+			"SmartTable": {
+				"uri": "/ODP_PORTALES_DEV/odata/SAP/ZSCP_CONTADMINISTRACION_SRV",
+				"type": "OData",
+				"settings": {
+					"odataVersion": "2.0",
+					"localUri": "localService/metadata.xml"
+				}
+			}
+		}
+	},
+	"sap.ui": {
+		"_version": "1.1.0",
+		"technology": "UI5",
+		"deviceTypes": {
+			"desktop": true,
+			"tablet": true,
+			"phone": true
+		},
+		"supportedThemes": [
+			"sap_belize"
+		]
+	},
+	"sap.ui5": {
+		"_version": "1.1.0",
+		"rootView": "sap.ui.administrativo.reporte.view.App",
+		"dependencies": {
+			"minUI5Version": "1.30",
+			"libs": {
+				"sap.m": {}
+			}
+		},
+		"models": {
+			"i18n": {
+				"type": "sap.ui.model.resource.ResourceModel",
+				"settings": {
+					"bundleName": "sap.ui.administrativo.reporte.i18n.i18n"
+				}
+			},
+			"": {
+				"dataSource": "SmartTable",
+				"settings": {
+					"defaultCountMode": "Inline"
+				}
+			}
+		},
+		"routing": {
+			"config": {
+				"routerClass": "sap.m.routing.Router",
+				"viewType": "XML",
+				"viewPath": "sap.ui.administrativo.reporte.view",
+				"controlId": "app",
+				"controlAggregation": "pages",
+				"transition": "slide"
+			},
+			"routes": [
+				{
+					"pattern": "",
+					"name": "reporteAsociados",
+					"target": "reporteasociados"
+				}
+			],
+			"targets": {
+				"reporteasociados": {
+					"path": "sap.ui.administrativo.reporte.view",
+					"viewName": "ReporteAsociados",
+					"viewId": "viewReporteAsociados",
+					"viewLevel": 1
+				}
+			}
+		}
+	},
+	"sap.platform.hcp": {
+		"uri": "",
+		"_version": "1.1.0"
+	}
+}
