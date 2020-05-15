@@ -1,0 +1,36 @@
+<c:FragmentDefinition
+      xmlns:l="sap.ui.layout" 
+      xmlns:c="sap.ui.core"    
+      xmlns:f="sap.ui.layout.form" 
+      xmlns:semantic="sap.m.semantic" 
+      xmlns:mvc="sap.ui.core.mvc" 
+      xmlns="sap.m" 
+      xmlns:html="http://www.w3.org/1999/xhtml" 
+      xmlns:form="sap.ui.layout.form"
+      xmlns:u="sap.uxap"
+      xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1">
+    <u:ObjectPageHeaderContent showTitleInHeaderContent="true" class="">
+        <u:content>
+            <l:VerticalLayout height="89%">
+                <u:ObjectPageHeader class="imageStyle" height="89%" id="headerForTest" responsive="true" objectTitle="Nombre" headerDesign="Lisght" markChangesPress="handleMarkChangesPress" objectImageShape="square" objectSubtitle="Cargo"
+                    isObjectIconAlwaysVisible="true" showMarkers="true" ActionAreaAlwaysVisible="false">
+                </u:ObjectPageHeader>
+                <ObjectStatus id="numpersonal" class="sapUiTinyMarginTop sapUiLargeMarginBeginEnd" title="Nro. Personal" text="00000" state="Success"
+                    icon="sap-icon://person-placeholder"/>
+            </l:VerticalLayout>
+            <l:VerticalLayout>
+                <l:layoutData>
+                    <u:ObjectPageHeaderLayoutData visibleS="false"/>
+                </l:layoutData>
+                <Label text=""/>
+                <ObjectStatus id="sociedad" title="Sociedad" text="sociedad"/>
+                <ObjectStatus id="gerencia" title="Gerencia" text="gerencia"/>
+                <ObjectStatus id="division" title="División" text="division" />
+
+                <Button id="boton" width="100%" icon="sap-icon://pdf-attachment" class="sapUiTinyMarginBeginEnd sapUiTinyMarginTopBottom" text="MANUAL DE VISITAS E INGRESO UNIDADES" app:data="1" press="descargarArchivo"/>
+                <!-- <Button id="Boton22" width="100%" icon="sap-icon://excel-attachment" class="sapUiTinyMarginBeginEnd sapUiTinyMarginTop" text="Descargar Plantilla" app:data="2" press="descargarArchivo"/> -->
+            </l:VerticalLayout>
+            
+        </u:content>
+    </u:ObjectPageHeaderContent>
+</c:FragmentDefinition>

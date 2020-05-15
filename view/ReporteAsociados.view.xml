@@ -1,0 +1,296 @@
+<mvc:View controllerName="sap.ui.administrativo.reporte.controller.ReporteAsociados"
+    xmlns:l="sap.ui.layout" 
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:t="sap.ui.table"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:c="sap.ui.core"
+    xmlns:smartTable="sap.ui.comp.smarttable"
+	xmlns:smartVariantManagement="sap.ui.comp.smartvariants"
+	xmlns:customData="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1">
+    <Page 
+        title="Reportes Asociados - Equipos"
+        showHeader="true"
+        enableScrolling="true"
+        navButtonPress="onNavBack"
+        showNavButton="true">
+        
+        <Panel 
+            expandable="true" 
+            expanded="false" 
+            width="auto"
+            class="colorBarra">
+            <c:Fragment fragmentName="sap.ui.administrativo.reporte.view.barra" type="XML"/>
+        </Panel>
+        <l:VerticalLayout
+            class="sapUiContentPadding"
+            width="100%">
+            <f:Form id="CABEZA" editable="true">
+                <f:layout>
+                    <f:ResponsiveGridLayout
+                        labelSpanXL="4"
+                        labelSpanL="4"
+                        labelSpanM="4"
+                        labelSpanS="12"
+                        adjustLabelSpan="false"
+                        emptySpanXL="0"
+                        emptySpanL="0"
+                        emptySpanM="0"
+                        emptySpanS="0"
+                        columnsXL="3"
+                        columnsL="3"
+                        columnsM="3"
+                        singleContainerFullSize="false" />
+                </f:layout>
+                <f:formContainers>
+                    <f:FormContainer title="">
+
+                        <f:formElements>
+                            <f:FormElement label="ID Visita Equipo">
+                                <f:fields>
+                                    <Input type="Text" id="id_visita_equipo" change="validaNumber"/>
+                                </f:fields>
+                            </f:FormElement>
+                        </f:formElements>
+
+                    </f:FormContainer>
+                    
+                    <f:FormContainer title="">
+
+                        <f:formElements>
+                            <f:FormElement label="N° Personal">
+                                <f:fields>
+                                    <Input id="npersonal" type="Text" change="validaNumber"/>
+                                </f:fields>
+                            </f:FormElement>
+                        </f:formElements>
+                        
+                    </f:FormContainer>
+
+                    <f:FormContainer title="">
+
+                        <f:formElements>
+                            <f:FormElement label="Fecha">
+                                <f:fields>
+                                    <DatePicker
+                                        id="fechaF"
+                                        placeholder="Ingrese la Fecha"
+                                        displayFormat="dd/MM/yyyy"
+                                        valueFormat="yyyy-MM-dd"
+                                        change="handleChange"/>
+                                </f:fields>
+                            </f:FormElement>
+                        </f:formElements>
+                        
+                    </f:FormContainer>
+
+                </f:formContainers>
+            </f:Form>
+	    	<Toolbar>
+	          <ToolbarSpacer/>
+	            <Button text="Buscar" press="buscar" icon="sap-icon://search" class="sapUiTinyMarginEnd"/>
+	            <Button text="Limpiar" press="limpiar" icon="sap-icon://synchronize" class="sapUiTinyMarginEnd"/>
+	        </Toolbar>
+	        <!--Elementos para la paginación-->
+            <l:HorizontalLayout>
+                    <Label class="sapUiTinyMarginTop sapUiTinyMarginEnd" text="Cantidad a mostrar:" />
+                    <Select id="sShow" selectKey="10" change="onShow">
+                        <c:ListItem key="10" text="10"/>
+                        <c:ListItem key="15" text="15"/>
+                        <c:ListItem key="20" text="20"/>
+                        <c:ListItem key="50" text="50"/>
+                        <c:ListItem key="100" text="100"/>
+                    </Select>
+                    <Button 
+                    id="btnSiguiente" icon="sap-icon://navigation-right-arrow"  iconFirst="false" type="Transparent"  text="Siguiente"  press="goNext"/>
+                    <Button 
+                    id="btnAnterior" icon="sap-icon://navigation-left-arrow"  type="Transparent"  text="Anterior"  press="goPrevious"/>
+            </l:HorizontalLayout>
+            
+            <!--Inicio de la variante-->
+			<HBox class="exPageVariantPadding">                                                
+	    		<smartVariantManagement:SmartVariantManagement
+	    			id="pageVariantId"
+	            	persistencyKey="PageVariantPKey"/>
+	        </HBox>
+	       <!--Fin de la variante-->
+	       
+	       <!--Smarttable Responsive con Scroll -->
+		    <ScrollContainer horizontal="true">
+	            <smartTable:SmartTable
+					id="ST_ReporteAsociadosGrid"
+					smartVariant="pageVariantId"
+					entitySet="RPT_EQUIPOSSet"
+					tableType="ResponsiveTable"
+					useExportToExcel="true"
+                    beforeExport="onBeforeExport"                   
+					useTablePersonalisation="true"
+					header=""
+					enableAutoBinding="false"
+                    beforeRebindTable="beforeRebindTable"                   
+					initiallyVisibleFields="VisitaEquipoId,Pernr,Cname,Fecha"
+					dataReceived="InitSTGrid"
+					showRowCount="true"
+					persistencyKey="SmartTablePKey"
+					customData:useSmartField="false">
+				    <smartTable:customToolbar>
+			        	<OverflowToolbar design="Transparent">
+		                    <ToolbarSpacer/>
+		                    <Button press="onVolver" icon="sap-icon://close-command-field" tooltip="Volver" id="botonVolver"/>
+			    		</OverflowToolbar>
+			        </smartTable:customToolbar>
+				        <Table>
+							<columns>
+							    <Column width="5rem">
+							        <customData>
+							            <c:CustomData key="p13nData"
+										   value='\{"columnKey": "VisitaEquipoId", "leadingProperty":"VisitaEquipoId", "type":"numeric","sortProperty":"VisitaEquipoId", "filterProperty":"VisitaEquipoId"}' />
+							        </customData>
+							        <Label text="Id Salida" />
+							    </Column>
+							    <Column width="6rem">
+							        <customData> 
+							            <c:CustomData key="p13nData"
+										   value='\{"columnKey": "Pernr", "leadingProperty":"Pernr", "type":"numeric","sortProperty":"Pernr", "filterProperty":"Pernr"}' />
+							        </customData>
+							        <Label text="N° Personal" />
+							    </Column>
+							    <Column width="16rem">
+							        <customData> 
+							            <c:CustomData key="p13nData"
+										   value='\{"columnKey": "Cname", "leadingProperty":"Cname", "type":"empty string","sortProperty":"Cname", "filterProperty":"Cname"}' />
+							        </customData>
+							        <Label text="Nombre Completo" />
+							    </Column>
+							    <Column width="7rem">
+							        <customData> 
+							            <c:CustomData key="p13nData"
+										   value='\{"columnKey": "Fecha", "leadingProperty":"Fecha", "type":"date","sortProperty":"Fecha", "filterProperty":"Fecha"}' />
+							        </customData>
+							        <Label text="Fecha" />
+							    </Column>
+							    <Column width="6rem">
+							        <customData> 
+							            <c:CustomData key="p13nData"
+										   value='\{"columnKey": "EquipoId", "leadingProperty":"EquipoId", "sortProperty":"EquipoId", "filterProperty":"EquipoId"}' />
+							        </customData>
+							        <Label text="ID Equipo" />
+							    </Column>
+							    <Column width="7rem">
+							        <customData> 
+							            <c:CustomData key="p13nData"
+										   value='\{"columnKey": "TipoEquipo", "leadingProperty":"TipoEquipo", "sortProperty":"TipoEquipo", "filterProperty":"TipoEquipo"}' />
+							        </customData>
+							        <Label text="Tipo Equipo" />
+							    </Column>
+							    <Column width="5rem">
+							        <customData> 
+							            <c:CustomData key="p13nData"
+										   value='\{"columnKey": "Marca", "leadingProperty":"Marca", "sortProperty":"Marca", "filterProperty":"Marca"}' />
+							        </customData>
+							        <Label text="Marca" />
+							    </Column>
+							    <Column width="6rem">
+							        <customData> 
+							            <c:CustomData key="p13nData"
+										   value='\{"columnKey": "Modelo", "leadingProperty":"Modelo", "sortProperty":"Modelo", "filterProperty":"Modelo"}' />
+							        </customData>
+							        <Label text="Modelo" />
+							    </Column>
+							    <Column width="6rem">
+							        <customData> 
+							            <c:CustomData key="p13nData"
+										   value='\{"columnKey": "Hora", "leadingProperty":"Hora","sortProperty":"Hora", "filterProperty":"Hora"}' />
+							        </customData>
+							        <Label text="Hora" />
+							    </Column>
+							    <Column width="7rem">
+							        <customData> 
+							            <c:CustomData key="p13nData"
+										   value='\{"columnKey": "EstadoVistEqu", "leadingProperty":"EstadoVistEqu", "sortProperty":"EstadoVistEqu", "filterProperty":"EstadoVistEqu"}' />
+							        </customData>
+							        <Label text="ID Estado Equipo" />
+							    </Column>
+							</columns>
+							<items>
+								<ColumnListItem>
+							    	<cells>
+							        	<Text text="{VisitaEquipoId}"/>
+							        	<Text text="{Pernr}"/>
+							        	<Text text="{Cname}"/>
+							        	<Text text="{path: 'Fecha', formatter: '.formatter.getfecha'}"/>
+							        	<Text text="{EquipoId}"/>
+							        	<Text text="{TipoEquipo}"/>
+							        	<Text text="{Marca}"/>
+							        	<Text text="{Modelo}"/>
+							        	<Text text="{path: 'Hora', formatter: '.formatter.time'}"/>
+							        	<Text text="{path: 'EstadoVistEqu', formatter: '.formatter.getestado'}"/>
+							    	</cells>
+								</ColumnListItem>
+							</items>
+						</Table>
+				</smartTable:SmartTable>
+			</ScrollContainer>
+			
+	       <!--Tabla Responsive Table -->
+			<smartTable:SmartTable
+				id="ST_ReporteAsociadosRes"
+				smartFilterId="smartFilterBar"
+				tableType="ResponsiveTable"
+				entitySet="RPT_EQUIPOSSet"
+				useTablePersonalisation="true"
+				dataReceived="InitSTResponsive"
+				useExportToExcel="true"
+				enableAutoBinding="false"
+                beforeExport="onBeforeExport"
+                beforeRebindTable="beforeRebindTable"                      
+				initiallyVisibleFields="VisitaEquipoId,Pernr,Cname,Fecha,Marca,Modelo"
+				showRowCount="true"
+				demandPopin="true"
+				customData:useSmartField="false">
+				<Table>
+					<columns>
+					    <Column>
+					        <customData> 
+					            <c:CustomData key="p13nData"
+								   value='\{"columnKey": "VisitaEquipoId", "leadingProperty":"VisitaEquipoId", "type":"numeric","sortProperty":"VisitaEquipoId", "filterProperty":"VisitaEquipoId"}' />
+					        </customData>
+					        <Label text="Id Salida" />
+					    </Column>
+					    <Column>
+					        <customData> 
+					            <c:CustomData key="p13nData"
+								   value='\{"columnKey": "Pernr", "leadingProperty":"Pernr", "type":"numeric","sortProperty":"Pernr", "filterProperty":"Pernr"}' />
+					        </customData>
+					        <Label text="N° Personal" />
+					    </Column>
+					    <Column>
+					        <customData> 
+					            <c:CustomData key="p13nData"
+								   value='\{"columnKey": "Cname", "leadingProperty":"Cname", "type":"empty string","sortProperty":"Cname", "filterProperty":"Cname"}' />
+					        </customData>
+					        <Label text="Nombre Completo" />
+					    </Column>
+					    <Column>
+					        <customData> 
+					            <c:CustomData key="p13nData"
+								   value='\{"columnKey": "Fecha", "leadingProperty":"Fecha", "type":"date","sortProperty":"Fecha", "filterProperty":"Fecha"}' />
+					        </customData>
+					        <Label text="Fecha" />
+					    </Column>
+					</columns>
+					<items>
+						<ColumnListItem type="Navigation" press="onViewTable">
+					    	<cells>
+					        	<Text text="{VisitaEquipoId}"/>
+					        	<Text text="{Pernr}"/>
+					        	<Text text="{Cname}"/>
+					        	<Text text="{Fecha}"/>
+					    	</cells>
+						</ColumnListItem>
+					</items>
+				</Table>
+			</smartTable:SmartTable>
+        </l:VerticalLayout>
+    </Page>    
+</mvc:View>
